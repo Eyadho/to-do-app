@@ -4,7 +4,7 @@ function TodosList({todoData}) {
   return (
     <div>
         {todoData.map((todo) => (
-            <Todo />
+          <Todo data={todo} />
         ))}
     </div>
   )

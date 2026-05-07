@@ -1,6 +1,10 @@
-function Todo() {
+function Todo({data}) {
   return (
-    <div>Todo</div>
+    <div className="todo">
+      <input type="checkbox" />
+      <span>{data.title}</span>
+      <button>X</button>
+    </div>
   )
 }
 
