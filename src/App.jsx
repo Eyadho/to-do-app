@@ -12,7 +12,7 @@ function App() {
   {
     id: 2,
     title: "Buy groceries",
-    completed: true,
+    completed: false,
   },
   {
     id: 3,
@@ -25,11 +25,22 @@ function App() {
     completed: false,
   }
   ])
+
+
+  const removeTodo = (id) => {
+    setTodo(todo.filter(item => item.id !== id))
+  }
+
+  const toggleComplete = (id) => {
+    setTodo(todo.map(item =>
+      item.id === id ? {...item, completed: !item.completed} : item 
+    ))
+  }
   
 
   return (
     <>
-    <TodosList todoData={todo} />
+    <TodosList todoData={todo} removeTodo={removeTodo} toggleComplete={toggleComplete} />
     </>
   )
 }
