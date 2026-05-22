@@ -27,6 +27,20 @@ function App() {
   ])
 
 
+  const [newTodo, setNewTodo] = useState("")
+  const addTodo = () => {
+    if (newTodo.trim() === "") return
+
+    const newItem = {
+      id: Date.now(),
+      title: newTodo,
+      completed: false,
+    }
+    setTodo([...todo, newItem])
+    setNewTodo("")
+  }
+
+
   const removeTodo = (id) => {
     setTodo(todo.filter(item => item.id !== id))
   }
@@ -36,11 +50,29 @@ function App() {
       item.id === id ? {...item, completed: !item.completed} : item 
     ))
   }
+
+  const updateTodo = (id, newTitle) => {
+    setTodo(todo.map(item => 
+      item.id === id ? { ...item, title: newTitle} : item
+    ))
+  }
   
 
   return (
     <>
-    <TodosList todoData={todo} removeTodo={removeTodo} toggleComplete={toggleComplete} />
+    <div>
+      <input type="text" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} placeholder='Add new Todo ...' />
+      <button onClick={addTodo}>Add</button>
+    </div>
+
+
+
+    <TodosList 
+      todoData={todo} 
+      removeTodo={removeTodo} 
+      toggleComplete={toggleComplete}
+      updateTodo={updateTodo}
+    />
     </>
   )
 }
