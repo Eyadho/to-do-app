@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const useTodoStore = create((set) => ({
+const useTodoStore = create(presist((set) => ({
   todos: [
     {
       id: 1,
@@ -49,6 +50,8 @@ const useTodoStore = create((set) => ({
     set({
       todos: [],
     }),
+}),{
+    name: "todos"
 }));
 
 export default useTodoStore;
