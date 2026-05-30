@@ -1,56 +1,62 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import {create} from "zustand";
+import {persist} from "zustand/middleware";
 
-const useTodoStore = create(presist((set) => ({
-  todos: [
-    {
-      id: 1,
-      title: "Finish React project",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Buy groceries",
-      completed: false,
-    },
-  ],
-
-  addTodo: (title) =>
-    set((state) => ({
-      todos: [
-        ...state.todos,
+const useTodoStore = create(persist((set) => ({
+    todos: [
         {
-          id: Date.now(),
-          title,
-          completed: false,
+            id: 1,
+            title: "Finish React project",
+            completed: false,
         },
-      ],
-    })),
+        {
+            id: 2,
+            title: "Buy groceries",
+            completed: false,
+        },
+    ],
 
-  removeTodo: (id) =>
-    set((state) => ({
-      todos: state.todos.filter((todo) => todo.id !== id),
-    })),
+    addTodo: (title) => {
+        if (!title.trim()) {
+            alert("Please enter a title");
+            return;
+        }
 
-  toggleComplete: (id) =>
-    set((state) => ({
-      todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    })),
+        set((state) => ({
+            todos: [
+                ...state.todos,
+                {
+                    id: Date.now(),
+                    title,
+                    completed: false,
+                },
+            ],
+        }))
+    },
 
-  updateTodo: (id, newTitle) =>
-    set((state) => ({
-      todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, title: newTitle } : todo,
-      ),
-    })),
+    removeTodo: (id) =>
+        set((state) => ({
+            todos: state.todos.filter((todo) => todo.id !== id),
+        })),
 
-  clearAllTodos: () =>
-    set({
-      todos: [],
-    }),
-}),{
+    toggleComplete: (id) =>
+        set((state) => ({
+            todos: state.todos.map((todo) =>
+                todo.id === id ? {...todo, completed: !todo.completed} : todo,
+            ),
+        })),
+
+    updateTodo: (id, newTitle) =>
+        set((state) => ({
+            todos: state.todos.map((todo) =>
+                todo.id === id ? {...todo, title: newTitle} : todo,
+            ),
+        })),
+
+    clearAllTodos: () =>
+        set({
+            todos: [],
+        }),
+}), {
     name: "todos"
 }));
 
