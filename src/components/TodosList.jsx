@@ -1,11 +1,18 @@
 import Todo from "./Todo"
+import useTodoStore from "../store/todosStore"
 
-function TodosList({todoData, removeTodo, toggleComplete, updateTodo}) {
+function TodosList() {
+
+  const todos = useTodoStore((state) => state.todos)
+
   return (
     <div>
-        {todoData.map((todo) => (
-          <Todo data={todo} removeTodo={removeTodo} toggleComplete={toggleComplete} updateTodo={updateTodo}/>
-        ))}
+      {todos.map((todo) => (
+        <Todo
+          key={todo.id}
+          data={todo}
+        />
+      ))}
     </div>
   )
 }
